@@ -7,26 +7,29 @@ import com.sofka.alphapostcomments.domain.values.Content;
 
 public class CommentAdded extends DomainEvent {
 
-    private final CommentID id;
-    private final Author author;
-    private final Content content;
+    private  String id;
+    private  String author;
+    private  String content;
 
-    public CommentAdded(CommentID id, Author author, Content content) {
+    public CommentAdded(String id, String author, String content) {
         super("domain.commentadded");
         this.id = id;
         this.author = author;
         this.content = content;
     }
-
-    public CommentID getId() {
+    public CommentAdded(){
+        super("domain.commentadded");
+    }
+//guetters
+    public String getId() {
         return id;
     }
 
-    public Author getAuthor() {
+    public String getAuthor() {
         return author;
     }
 
-    public Content getContent() {
+    public String getContent() {
         return content;
     }
 }

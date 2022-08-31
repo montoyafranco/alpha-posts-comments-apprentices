@@ -8,28 +8,30 @@ import com.sofka.alphapostcomments.domain.values.PostID;
 
 public class AddComment extends Command {
 
-    private final PostID postID;
-    private final CommentID id;
-    private final Author author;
-    private final Content content;
+    private  String postID;
+    private  String id;
+    private  String author;
+    private  String content;
 
-    public AddComment(PostID postID, CommentID id, Author author, Content content) {
+
+
+    public AddComment(String postID, String id, String author, String content) {
         this.postID = postID;
         this.id = id;
         this.author = author;
         this.content = content;
     }
     ///getters
-    public PostID getPostID() {
+    public String getPostID() {
         return postID;
     }
-    public CommentID getID() {
+    public String getID() {
         return id;
     }
-    public Author getAuthor() {
+    public String getAuthor() {
         return author;
     }
-    public Content getContent() {
+    public String getContent() {
         return content;
     }
 }

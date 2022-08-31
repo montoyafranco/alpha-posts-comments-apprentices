@@ -7,25 +7,28 @@ import com.sofka.alphapostcomments.domain.values.Title;
 
 public class CreatePost extends Command {
 
-    private final PostID postID;
-    private final Title title;
-    private final Author author;
+    private  String postID;
+    private  String title;
+    private  String author;
 
-    public CreatePost(PostID postID, Title title, Author author) {
+    public CreatePost() {
+    }
+
+    public CreatePost(String postID, String title, String author) {
         this.postID = postID;
         this.title = title;
         this.author = author;
     }
-
-    public PostID getPostID() {
+//guetters
+    public String getPostID() {
         return postID;
     }
 
-    public Title getTitle() {
+    public String getTitle() {
         return title;
     }
 
-    public Author getAuthor() {
+    public String getAuthor() {
         return author;
     }
 }

@@ -15,7 +15,7 @@ public class Post extends AggregateEvent<PostID> {
     protected Author author;
     protected List<Comment> comments;
 
-    private Post(PostID postID) {
+    public Post(PostID postID) {
         super(postID);
         subscribe(new PostChange(this));
     }
@@ -28,14 +28,14 @@ public class Post extends AggregateEvent<PostID> {
 
     public Post(PostID postID, Title title, Author author){
         super(postID);
-        appendChange(new PostCreated(title, author));
+        appendChange(new PostCreated(title.value(), author.value()));
     }
 
     public void addComment(CommentID commentID, Author author, Content content){
         Objects.requireNonNull(commentID);
         Objects.requireNonNull(author);
         Objects.requireNonNull(content);
-        appendChange(new CommentAdded(commentID, author, content));
+        appendChange(new CommentAdded(commentID.value(), author.value(), content.value()));
     }
 
     public Title title() {
