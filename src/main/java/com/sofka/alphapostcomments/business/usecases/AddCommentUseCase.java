@@ -24,9 +24,15 @@ public class AddCommentUseCase  {
     }
 
     public Flux<DomainEvent> applyAddComment(Mono<AddComment> comentario){
+
+        // QUE HACE FLATMAPMANY????
         return comentario.flatMapMany(
-                comand -> domainEventRepository.findPostById(comand.getPostID())
+                comand -> domainEventRepository
+                        .findPostById(comand.getPostID())
+                        //con el collectList() obtengo la lista de eventos q vamos a usar para construir el póst
+                        //dandome MONO <LISTA>  <---- es una lista de eventos <Domain events>
                         .collectList()
+                        //con el collectList() obtengo la lista de eventos q vamos a usar para construir el póst
                         //con el flatmap iterable lo convierto en FLUX y me permite trabajarlo
                         .flatMapIterable(events ->{
                             Post post = Post.from(PostID.of(comand.getPostID()),events);
@@ -35,6 +41,7 @@ public class AddCommentUseCase  {
 
                             return post.getUncommittedChanges();
                         }).flatMap(event -> domainEventRepository.saveEvent(event))
+                // con el flatmap le saco la indentacion nueva q se le agregaria
         );
 
     }
