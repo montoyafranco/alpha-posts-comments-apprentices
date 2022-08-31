@@ -21,16 +21,21 @@ public class CreatePostUseCase  {
     public Flux<DomainEvent> apply(Mono<CreatePost> createPostMono){
         //COMO TENGO QUE DEVOLVER UN FLUX de un MONO USO flatMapIterable
         // transformandolo y permitiendo poder trabajarlo
+        //en teoria el flatmapiterable lo hace si el mono tiene List adentro
+        //---------si hubiera llamado al repositorio eventsby Id tendria que haber usado FLATmapMany
+        // xq -----
         return createPostMono
+                //con flatmap no me dio
+                //con flatmapmany no me funciono --- pruebo con flatmapiterable
                 .flatMapIterable(comando->{
                     //preguntar diferencia entre
                     //FLATMAPITERABLE Y FLATMAPMANY
                     //
-            Post post = new Post(PostID.of(comando.getPostID()),new Title(comando.getTitle())
-                    ,new Author(comando.getAuthor()));
+            Post post = new Post(PostID.of(comando.getPostID()),new Title(comando.getTitle()),new Author(comando.getAuthor()));
             //aplico el return de uncomited-changes pero no me acuerdo para que era
-            return post.getUncommittedChanges();
-        }).flatMap(eventRepository::saveEvent);
+            return post
+                    .getUncommittedChanges();
+        }).flatMap(e -> eventRepository.saveEvent(e));
         //ESTA LINEA LA PUEDO BORRAR??  por ahora no se usa... o eso creo
         //le aplico flatmap xq le agrega una indentacion
     }

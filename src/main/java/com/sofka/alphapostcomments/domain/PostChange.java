@@ -5,6 +5,7 @@ import com.sofka.alphapostcomments.domain.events.CommentAdded;
 import com.sofka.alphapostcomments.domain.events.PostCreated;
 import com.sofka.alphapostcomments.domain.values.Author;
 import com.sofka.alphapostcomments.domain.values.CommentID;
+import com.sofka.alphapostcomments.domain.values.Content;
 import com.sofka.alphapostcomments.domain.values.Title;
 
 import java.util.ArrayList;
@@ -22,9 +23,12 @@ public class PostChange  extends EventChange {
         });
 
         apply((CommentAdded event) -> {
-            List<Comment> comments = post.comments;
+            post.comments.add(
+                    new Comment(
+                            new CommentID(event.getId()),
+                            new Author(event.getAuthor()),new Content(event.getContent())));
 
-            comments.add(new Comment(event.getId(), event.getAuthor(), event.getContent()));
+
         });
 
 

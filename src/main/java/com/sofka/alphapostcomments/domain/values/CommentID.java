@@ -8,7 +8,7 @@ public class CommentID  extends Identity {
 
     }
 
-    private CommentID(String id){
+    public CommentID(String id){
         super(id);
     }
 

@@ -25,7 +25,9 @@ public class AddCommentUseCase  {
 
     public Flux<DomainEvent> applyAddComment(Mono<AddComment> comentario){
 
-        // QUE HACE FLATMAPMANY????
+        // QUE HACE FLATMAPMANY???? ----
+        // hace lo mismo que flatmap -Cuando el contenido de nuestro Mono es un
+        // Flux o el return de un método usado en el pipe del Mono retorna un Flux de algo.
         return comentario.flatMapMany(
                 comand -> domainEventRepository
                         .findPostById(comand.getPostID())
